@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Quiz Attempt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #17a2b8;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Attempt Details</h1>
+    <p><strong>User:</strong> {{ attempt.user.username }}</p>
+    <p><strong>Score:</strong> {{ attempt.score }}</p>
+    <p><strong>Timestamp:</strong> {{ attempt.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Your Answer</th>
+                <th>Correct Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for response in responses %}
+            <tr>
+                <td>{{ response.question.text }}</td>
+                <td>{{ response.chosen_choice }}</td>
+                <td>{{ response.question.correct_choice }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('admin_attempts') }}" style="display: inline-block; margin-top: 1rem;">Back to Admin Attempts</a>
+</body>
+</html>

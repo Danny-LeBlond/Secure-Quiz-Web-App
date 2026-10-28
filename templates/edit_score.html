@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Score</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+        }
+        input, button {
+            padding: 0.75rem;
+            margin: 1rem;
+            width: 200px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Score</h1>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="score">New Score:</label><br>
+        <input type="number" name="score" id="score" value="{{ score.score }}" min="0" max="10" required><br>
+        <button type="submit">Update Score</button>
+    </form>
+    <a href="{{ url_for('admin_scores') }}" style="display: inline-block; margin-top: 1rem;">Back to Admin Scores</a>
+</body>
+</html>

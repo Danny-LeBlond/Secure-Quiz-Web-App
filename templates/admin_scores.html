@@ -1,0 +1,80 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Scores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a, button {
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0.2rem;
+        }
+        a.delete {
+            background-color: #dc3545;
+        }
+        a:hover, button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard - Manage Scores</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Score</th>
+                <th>Timestamp</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+            <tr>
+                <td>{{ score.user.username }}</td>
+                <td>{{ score.score }}</td>
+                <td>{{ score.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>
+                    <a href="{{ url_for('edit_score', id=score.id) }}">Edit</a>
+                    <form action="{{ url_for('delete_score', id=score.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="delete" onclick="return confirm('Are you sure you want to delete this score?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('welcome') }}" style="background-color: #007bff;">Back to Home</a>
+</body>
+</html>

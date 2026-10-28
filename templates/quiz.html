@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 2rem;
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            margin-bottom: 1rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        label {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+        input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+        button {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Question {{ num }}</h2>
+    <p>{{ question.text }}</p>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label><input type="radio" name="choice" value="A" required> A. {{ question.choice_a }}</label>
+        <label><input type="radio" name="choice" value="B"> B. {{ question.choice_b }}</label>
+        <label><input type="radio" name="choice" value="C"> C. {{ question.choice_c }}</label>
+        <label><input type="radio" name="choice" value="D"> D. {{ question.choice_d }}</label>
+        <button type="submit">Submit Answer</button>
+    </form>
+</body>
+</html>
